@@ -56,7 +56,7 @@
  }
  ```
 * 1、安装npm i @babel/core @babel/preset-env babel-loader -D
-> -D:--save dev   
+> -D:--save-dev   
 * 2、创建.babelrc文件，添加presets
   ```js
   {
