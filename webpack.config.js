@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 module.exports = {
     entry:{
         index: './src/main.js',
@@ -10,7 +11,7 @@ module.exports = {
         path : path.join(__dirname,'dist'),
         filename: '[name].js'
     },
-    mode: 'production',
+    mode: 'development',
     module:{
         rules:[
             {
@@ -60,6 +61,17 @@ module.exports = {
     plugins:[
         new HtmlWebpackPlugin({
             template:'./public/index.html'
-        })
-    ]
+        }),
+        new webpack.HotModuleReplacementPlugin() //热更新插件
+    ],
+    devServer:{
+        contentBase: './dist', //指定目录
+        hot: true //开启热更新
+    },
+    watch:true,
+    watchOptions:{
+        ignored:/node-modules/,
+        aggregateTimeout:300,
+        poll:1000
+    }
 }
