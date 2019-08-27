@@ -2,6 +2,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
     entry:{
         index: './src/main.js',
@@ -62,7 +63,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template:'./public/index.html'
         }),
-        new webpack.HotModuleReplacementPlugin() //热更新插件
+        new webpack.HotModuleReplacementPlugin(), //热更新插件
+        new CleanWebpackPlugin()
     ],
     devServer:{
         contentBase: './dist', //指定目录

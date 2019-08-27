@@ -2,6 +2,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
     entry:{
         index: './src/main.js',
@@ -80,12 +82,28 @@ module.exports = {
     },
     plugins:[
         new HtmlWebpackPlugin({
-            template:'./public/index.html'
+            template:path.join(__dirname,'public/index.html'),
+            filename:'index.html',
+            chunks:['index','search'],
+            inject:true,
+            minify:{
+              html5:true,
+              collapseWhitespace:true,
+              preserveLineBreaks:false,
+              minifyCSS:true,
+              minifyJS:true,
+              removeComments:false
+            }
         }),
         new MiniCssExtractPlugin({
           filename: 'css/[name]_[contenthash:8].css',
           chunkFilename: '[id]_[contenthash:8].css',
           ignoreOrder: false, // Enable to remove warnings about conflicting order
-        })
+        }),
+        new OptimizeCssAssetsWebpackPlugin({
+          assetNameRegExp:/\.css$/g,
+          cssProcessor:require('cssnano')
+        }),
+        new CleanWebpackPlugin()
     ]
 }
