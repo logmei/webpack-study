@@ -9,9 +9,9 @@ import logo from './images/logo.png';
 class Search extends React.Component {
     render(){
         return <div>
-            <div className='search-class-css'>Search Css Test</div>
-            <div className='search-class-less'>Search Less Test</div>
-            <div className='search-class-scss'>Search Scss Test</div>
+            <div className='search-class-css'>Search Css Test1</div>
+            <div className='search-class-less'>Search Less Test1</div>
+            <div className='search-class-scss'>Search Scss Test1</div>
             <img src={image}></img>
             <img src={logo}></img>
             </div>

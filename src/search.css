@@ -1,3 +1,6 @@
 .search-class-css{
-    color: blue
+    color: blue;
+    background: #ccc;
+    border-radius: 5 px;
+    font-size: 16px;
 }
