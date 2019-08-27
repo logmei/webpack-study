@@ -87,11 +87,26 @@
           rules:[
               {
                   test:/\.(jpg|png|gif|jpeg)$/,
-                  use:'file-loader'
+                  use:{
+                    'file-loader',
+                    options:{
+                      name:'img/[name]_[hash:8].[ext]'
+                    }
+                  }
               }
           ]
       }
   }
+  ```
+* 3、占位符
+  ```js
+  [ext] : 资源后缀名
+  [name] : 文件名称
+  [path] : 文件的相对路径
+  [folder] : 文件所在的文件夹
+  [contenthash] : 文件的内容hash,默认是md5生成
+  [hash] : 文件内容的hash,默认是md5生成
+  [emoji] : 一个随机的指代文件内容的emoji
   ```
 > url-loader做了base64的转码，内部使用的也是file-loader
 * 1、安装 npm i file-loader -D
