@@ -52,6 +52,8 @@ module.exports = {
 > 根据文件内容来定义hash，文件内容不变，则contenthash不变;一般css会采用contenthash，js发生变化，不会导致css重新生成
 
 > css一般都会采用style-loader和css-loader，最终会通过style标签插入到页面上，不会生产css文件，所以需要使用MiniCssExtractPlugin插件
+
+> MiniCssExtractPlugin.loader跟style-loader的功能是互斥的，不能同时存在
 * 1、安装 npm i mini-css-extract-plugin -D
 * 2、webpack添加配置
   ```js

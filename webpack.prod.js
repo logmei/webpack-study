@@ -56,21 +56,26 @@ module.exports = {
                 'sass-loader'
               ]
             },
-            // {
-            //     test:/\.(jpg|png|gif|jpeg)$/,
-            //     use:'file-loader'
-            // }
             {
                 test:/\.(jpg|png|gif|jpeg)$/,
-                use:[
-                    {
-                        loader:'url-loader',
-                        options:{
-                            limit:10240 //图片小于10k  webpack会对图片做base64转码，编译到js文件中
-                        }
-                    }
-                ]
+                use:[{
+                  loader:'file-loader',
+                  options:{
+                    name:'img/[name]_[hash:8].[ext]'
+                  }
+                }]
             }
+            // {
+            //     test:/\.(jpg|png|gif|jpeg)$/,
+            //     use:[
+            //         {
+            //             loader:'url-loader',
+            //             options:{
+            //                 limit:10240 //图片小于10k  webpack会对图片做base64转码，编译到js文件中
+            //             }
+            //         }
+            //     ]
+            // }
         ]
     },
     plugins:[
@@ -78,7 +83,7 @@ module.exports = {
             template:'./public/index.html'
         }),
         new MiniCssExtractPlugin({
-          filename: '[name]_[contenthash:8].css',
+          filename: 'css/[name]_[contenthash:8].css',
           chunkFilename: '[id]_[contenthash:8].css',
           ignoreOrder: false, // Enable to remove warnings about conflicting order
         })
