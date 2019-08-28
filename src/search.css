@@ -2,5 +2,6 @@
     color: blue;
     background: #ccc;
     border-radius: 5 px;
-    font-size: 16px;
+    font-size: 24px;
+    display: flex
 }

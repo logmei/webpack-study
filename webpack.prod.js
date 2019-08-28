@@ -24,7 +24,15 @@ module.exports = {
                 test:/\.css$/,
                 use:[
                 'style-loader',
-                'css-loader'
+                'css-loader',
+                'postcss-loader',
+                {
+                  loader:'px2rem-loader',
+                  options:{
+                    remUnit:75,
+                    remPrecision:8
+                  }
+                }
                 ]
             },//添加style-loader,css-loader
             {
@@ -32,7 +40,15 @@ module.exports = {
                 use:[
                 'style-loader',
                 'css-loader',
-                'less-loader'
+                'less-loader',
+                'postcss-loader',
+                {
+                  loader:'px2rem-loader',
+                  options:{
+                    remUnit:75,
+                    remPrecision:8
+                  }
+                }
                 ]
             },//添加style-loader,css-loader,less-loader
             // {
@@ -48,14 +64,22 @@ module.exports = {
               test:/\.(scss)$/,
               use:[
                 {
-                  loader: MiniCssExtractPlugin.loader,
+                  loader: MiniCssExtractPlugin.loader,//css提取成文件
                   options: {
                     publicPath:'../',
                     hmr: process.env.NODE_ENV === 'production'
                   }
                 },
                 'css-loader',
-                'sass-loader'
+                'sass-loader',
+                'postcss-loader',
+                {
+                  loader:'px2rem-loader',//px转rem
+                  options:{
+                    remUnit:75,
+                    remPrecision:8
+                  }
+                }
               ]
             },
             {
@@ -63,7 +87,7 @@ module.exports = {
                 use:[{
                   loader:'file-loader',
                   options:{
-                    name:'img/[name]_[hash:8].[ext]'
+                    name:'img/[name]_[hash:8].[ext]'//图片文件增加hash
                   }
                 }]
             }
@@ -86,24 +110,24 @@ module.exports = {
             filename:'index.html',
             chunks:['index','search'],
             inject:true,
-            minify:{
-              html5:true,
-              collapseWhitespace:true,
-              preserveLineBreaks:false,
-              minifyCSS:true,
-              minifyJS:true,
-              removeComments:false
-            }
+            // minify:{//html压缩
+            //   html5:true,
+            //   collapseWhitespace:true,
+            //   preserveLineBreaks:false,
+            //   minifyCSS:true,
+            //   minifyJS:true,
+            //   removeComments:false
+            // }
         }),
-        new MiniCssExtractPlugin({
+        new MiniCssExtractPlugin({//提前css文件
           filename: 'css/[name]_[contenthash:8].css',
           chunkFilename: '[id]_[contenthash:8].css',
           ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
-        new OptimizeCssAssetsWebpackPlugin({
+        new OptimizeCssAssetsWebpackPlugin({//css压缩
           assetNameRegExp:/\.css$/g,
           cssProcessor:require('cssnano')
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin()//清除目录
     ]
 }

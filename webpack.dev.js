@@ -23,7 +23,8 @@ module.exports = {
                 test:/\.css$/,
                 use:[
                 'style-loader',
-                'css-loader'
+                'css-loader',
+                'postcss-loader'
                 ]
             },//添加style-loader,css-loader
             {
@@ -31,7 +32,8 @@ module.exports = {
                 use:[
                 'style-loader',
                 'css-loader',
-                'less-loader'
+                'less-loader',
+                'postcss-loader'
                 ]
             },//添加style-loader,css-loader,less-loader
             {
@@ -39,7 +41,8 @@ module.exports = {
                 use:[
                 'style-loader',
                 'css-loader',
-                'sass-loader'
+                'sass-loader',
+                'postcss-loader'
                ]
             },//添加style-loader,css-loader,sass-loader
             // {
@@ -64,7 +67,8 @@ module.exports = {
             template:'./public/index.html'
         }),
         new webpack.HotModuleReplacementPlugin(), //热更新插件
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        ()=>require('autoprefixer')
     ],
     devServer:{
         contentBase: './dist', //指定目录
