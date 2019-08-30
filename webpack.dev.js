@@ -1,13 +1,11 @@
 'use strict'
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {entry,htmlWebpackPlugins} = require('./src/util/webpackentrys_glob')
 module.exports = {
-    entry:{
-        index: './src/main.js',
-        search: './src/search.js'
-    },
+    entry:entry,
     output:{
         path : path.join(__dirname,'dist'),
         filename: '[name].js'
@@ -63,13 +61,10 @@ module.exports = {
         ]
     },
     plugins:[
-        new HtmlWebpackPlugin({
-            template:'./public/index.html'
-        }),
         new webpack.HotModuleReplacementPlugin(), //热更新插件
         new CleanWebpackPlugin(),
         ()=>require('autoprefixer')
-    ],
+    ].concat(htmlWebpackPlugins),
     devServer:{
         contentBase: './dist', //指定目录
         hot: true //开启热更新

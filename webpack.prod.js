@@ -1,14 +1,12 @@
 'use strict'
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {entry,htmlWebpackPlugins} = require('./src/util/webpackentrys_glob')
 module.exports = {
-    entry:{
-        index: './src/main.js',
-        search: './src/search.js'
-    },
+    entry:entry,
     output:{
         path : path.join(__dirname,'dist'),
         filename: '[name]_[chunkhash:8].js'
@@ -105,20 +103,20 @@ module.exports = {
         ]
     },
     plugins:[
-        new HtmlWebpackPlugin({
-            template:path.join(__dirname,'public/index.html'),
-            filename:'index.html',
-            chunks:['index','search'],
-            inject:true,
-            // minify:{//html压缩
-            //   html5:true,
-            //   collapseWhitespace:true,
-            //   preserveLineBreaks:false,
-            //   minifyCSS:true,
-            //   minifyJS:true,
-            //   removeComments:false
-            // }
-        }),
+        // new HtmlWebpackPlugin({
+        //     template:path.join(__dirname,'public/index.html'),
+        //     filename:'index.html',
+        //     chunks:['index','search'],
+        //     inject:true,
+        //     // minify:{//html压缩
+        //     //   html5:true,
+        //     //   collapseWhitespace:true,
+        //     //   preserveLineBreaks:false,
+        //     //   minifyCSS:true,
+        //     //   minifyJS:true,
+        //     //   removeComments:false
+        //     // }
+        // }),
         new MiniCssExtractPlugin({//提前css文件
           filename: 'css/[name]_[contenthash:8].css',
           chunkFilename: '[id]_[contenthash:8].css',
@@ -129,5 +127,5 @@ module.exports = {
           cssProcessor:require('cssnano')
         }),
         new CleanWebpackPlugin()//清除目录
-    ]
+    ].concat(htmlWebpackPlugins)
 }
